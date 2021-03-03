@@ -54,6 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FmLogViewer.ja-JP.resx">
+      <DependentUpon>FmLogViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FmLogViewer.resx">
       <DependentUpon>FmLogViewer.cs</DependentUpon>
     </EmbeddedResource>

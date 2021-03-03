@@ -115,15 +115,19 @@ namespace LogIO
         {
             if (!EnableOutputFile && !EnableOutputConsole)//Neither file or console is enable to output
                 return;
-
+#if !DEBUG
             if (level < _logLevel)
                 return;
+#endif
 
             if (string.IsNullOrWhiteSpace(msg))
                 return;
 
             int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
             string fullMsg =
+#if DEBUG
+                "[DEBUG BUILD]"+
+#endif
                 $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}{_timeZoneInfo.DisplayName}]" +
                 $"[{treadId}][{level}] {msg}{Environment.NewLine}";
             if (EnableEncryption)
