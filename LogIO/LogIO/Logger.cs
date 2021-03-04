@@ -76,6 +76,9 @@ namespace LogIO
                 _logFile = new FileInfo(fileName);
                 if (!Directory.Exists(_logFile.DirectoryName))
                     Directory.CreateDirectory(_logFile.DirectoryName);
+
+                _fmLogViewer.LogFileName = fileName;
+                _fmLogViewer.Text = Path.GetFileName(fileName);
             }
         }
         /// <summary>
@@ -126,12 +129,12 @@ namespace LogIO
             int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
             string fullMsg =
 #if DEBUG
-                "[DEBUG BUILD]"+
+                "[DEBUG BUILD (LogIO.dll)]"+
 #endif
                 $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}{_timeZoneInfo.DisplayName}]" +
                 $"[{treadId}][{level}] {msg}{Environment.NewLine}";
-            if (EnableEncryption)
-                fullMsg = _encrypt?.Invoke(fullMsg);
+            if (EnableEncryption && _encrypt != null)
+                fullMsg = _encrypt(fullMsg);
 
             lock (_lockObj)
             {

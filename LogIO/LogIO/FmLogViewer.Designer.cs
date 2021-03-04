@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FmLogViewer));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._btnOpenDirectory = new System.Windows.Forms.ToolStripMenuItem();
             this._btnSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._btnExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,10 +55,17 @@
             // 
             resources.ApplyResources(this.fileFToolStripMenuItem, "fileFToolStripMenuItem");
             this.fileFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._btnOpenDirectory,
             this._btnSave,
             this.toolStripSeparator1,
             this._btnExit});
             this.fileFToolStripMenuItem.Name = "fileFToolStripMenuItem";
+            // 
+            // _btnOpenDirectory
+            // 
+            resources.ApplyResources(this._btnOpenDirectory, "_btnOpenDirectory");
+            this._btnOpenDirectory.Name = "_btnOpenDirectory";
+            this._btnOpenDirectory.Click += new System.EventHandler(this._btnOpenDirectory_Click);
             // 
             // _btnSave
             // 
@@ -128,5 +136,6 @@
         private System.Windows.Forms.ToolStripMenuItem _btnRefresh;
         private System.Windows.Forms.ToolStripMenuItem _btnClear;
         private System.Windows.Forms.TextBox _tbxLog;
+        private System.Windows.Forms.ToolStripMenuItem _btnOpenDirectory;
     }
 }

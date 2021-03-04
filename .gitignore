@@ -34,3 +34,9 @@ LogIO/LogIO/obj/Debug/LogIO.FmLogViewer.ja-JP.resources
 LogIO/LogIO/obj/Release/DesignTimeResolveAssemblyReferences.cache
 LogIO/LogIO/bin/Release/ja-JP/LogIO.resources.dll
 LogIO/LogIO/bin/Debug/ja-JP/LogIO.resources.dll
+*.cache
+LogIO/LogIO/obj/Release/ja-JP/LogIO.resources.dll
+LogIO/LogIO/obj/Release/LogIO.FmLogViewer.ja-JP.resources
+LogIO/LogIO/obj/Release/ja-JP/LogIO.resources.dll
+*.dll
+LogIO/LogIO/obj/Release/LogIO.FmLogViewer.ja-JP.resources

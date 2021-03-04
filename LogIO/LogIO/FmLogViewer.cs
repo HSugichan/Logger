@@ -15,6 +15,7 @@ namespace LogIO
         public static FmLogViewer GetFmLogViewer() => _logViewer;
         private static readonly FmLogViewer _logViewer = new FmLogViewer();
         static readonly object _lockObj = new object();
+        public string LogFileName { get; set; }
 
         readonly System.Timers.Timer _timer;
         private FmLogViewer()
@@ -110,6 +111,11 @@ namespace LogIO
         {
             lock (_lockObj)
                 _tbxLog.Clear();
+        }
+
+        private void _btnOpenDirectory_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("EXPLORER.EXE", $@"/n,""{System.IO.Path.GetDirectoryName(LogFileName)}""");
         }
     }
 }
