@@ -41,3 +41,4 @@ LogIO/LogIO/obj/Release/ja-JP/LogIO.resources.dll
 LogIO/LogIO/obj/*
 LogIO/LogIO/bin/*
 *.dll
+*resources.dll
