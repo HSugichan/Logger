@@ -38,5 +38,6 @@ LogIO/LogIO/bin/Debug/ja-JP/LogIO.resources.dll
 LogIO/LogIO/obj/Release/ja-JP/LogIO.resources.dll
 LogIO/LogIO/obj/Release/LogIO.FmLogViewer.ja-JP.resources
 LogIO/LogIO/obj/Release/ja-JP/LogIO.resources.dll
+LogIO/LogIO/obj/*
+LogIO/LogIO/bin/*
 *.dll
-LogIO/LogIO/obj/Release/LogIO.FmLogViewer.ja-JP.resources
