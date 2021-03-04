@@ -117,5 +117,15 @@ namespace LogIO
         {
             System.Diagnostics.Process.Start("EXPLORER.EXE", $@"/n,""{System.IO.Path.GetDirectoryName(LogFileName)}""");
         }
+
+        private void _btnTogleAutoRefresh_Click(object sender, EventArgs e)
+        {
+            _btnTogleAutoRefresh.Checked = !_btnTogleAutoRefresh.Checked;
+        }
+
+        private void _btnTogleAutoRefresh_CheckedChanged(object sender, EventArgs e)
+        {
+            _timer.Enabled = _btnTogleAutoRefresh.Checked;
+        }
     }
 }

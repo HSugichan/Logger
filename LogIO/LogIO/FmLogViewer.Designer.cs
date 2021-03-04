@@ -37,6 +37,8 @@
             this._btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._btnRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this._btnTogleAutoRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this._btnClear = new System.Windows.Forms.ToolStripMenuItem();
             this._tbxLog = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
@@ -89,6 +91,8 @@
             resources.ApplyResources(this.toolTToolStripMenuItem, "toolTToolStripMenuItem");
             this.toolTToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._btnRefresh,
+            this._btnTogleAutoRefresh,
+            this.toolStripSeparator2,
             this._btnClear});
             this.toolTToolStripMenuItem.Name = "toolTToolStripMenuItem";
             // 
@@ -97,6 +101,20 @@
             resources.ApplyResources(this._btnRefresh, "_btnRefresh");
             this._btnRefresh.Name = "_btnRefresh";
             this._btnRefresh.Click += new System.EventHandler(this._btnRefresh_Click);
+            // 
+            // _btnTogleAutoRefresh
+            // 
+            resources.ApplyResources(this._btnTogleAutoRefresh, "_btnTogleAutoRefresh");
+            this._btnTogleAutoRefresh.Checked = true;
+            this._btnTogleAutoRefresh.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._btnTogleAutoRefresh.Name = "_btnTogleAutoRefresh";
+            this._btnTogleAutoRefresh.CheckedChanged += new System.EventHandler(this._btnTogleAutoRefresh_CheckedChanged);
+            this._btnTogleAutoRefresh.Click += new System.EventHandler(this._btnTogleAutoRefresh_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
             // 
             // _btnClear
             // 
@@ -137,5 +155,7 @@
         private System.Windows.Forms.ToolStripMenuItem _btnClear;
         private System.Windows.Forms.TextBox _tbxLog;
         private System.Windows.Forms.ToolStripMenuItem _btnOpenDirectory;
+        private System.Windows.Forms.ToolStripMenuItem _btnTogleAutoRefresh;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
