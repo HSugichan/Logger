@@ -17,6 +17,8 @@ namespace LogIO
         static readonly object _lockObj = new object();
         public string LogFileName { get; set; }
 
+        public event Action ChangedLogFile = null;
+
         readonly System.Timers.Timer _timer;
         private FmLogViewer()
         {
@@ -126,6 +128,11 @@ namespace LogIO
         private void _btnTogleAutoRefresh_CheckedChanged(object sender, EventArgs e)
         {
             _timer.Enabled = _btnTogleAutoRefresh.Checked;
+        }
+
+        private void _btnChangeFile_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

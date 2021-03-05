@@ -117,77 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="_btnOpenDirectory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="_btnOpenDirectory.Text" xml:space="preserve">
-    <value>ディレクトリを開く</value>
-  </data>
-  <data name="_btnSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="_btnSave.Text" xml:space="preserve">
-    <value>保存(&amp;S)...</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 6</value>
-  </data>
-  <data name="_btnExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="_btnExit.Text" xml:space="preserve">
-    <value>閉じる(&amp;X)</value>
-  </data>
-  <data name="fileFToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 20</value>
-  </data>
-  <data name="fileFToolStripMenuItem.Text" xml:space="preserve">
-    <value>ファイル(&amp;F)</value>
-  </data>
-  <data name="_btnRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="_btnRefresh.Text" xml:space="preserve">
-    <value>更新</value>
-  </data>
-  <data name="_btnTogleAutoRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="_btnTogleAutoRefresh.Text" xml:space="preserve">
-    <value>自動更新</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 6</value>
-  </data>
-  <data name="_btnClear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="_btnClear.Text" xml:space="preserve">
-    <value>消去</value>
-  </data>
-  <data name="toolTToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 20</value>
-  </data>
-  <data name="toolTToolStripMenuItem.Text" xml:space="preserve">
-    <value>ツール(&amp;T)</value>
-  </data>
-  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 24</value>
-  </data>
-  <data name="_tbxLog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 24</value>
-  </data>
-  <data name="_tbxLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 426</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>454, 450</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>記録</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="file_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\file_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
