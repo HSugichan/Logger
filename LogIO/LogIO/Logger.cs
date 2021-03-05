@@ -65,11 +65,18 @@ namespace LogIO
         private Logger()
         {
             MaxFileSize = 10 * 1024;
+
+            _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
+
             ChangeLogFile($@"log\{DateTime.Now.ToString("yyMMdd_HHmmss")}_log.log");
         }
 
         public void ChangeLogFile(string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName) ||
+                fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0)
+                return;
+
             // ログファイルを生成する
             lock (_lockObj)
             {
@@ -77,8 +84,7 @@ namespace LogIO
                 if (!Directory.Exists(_logFile.DirectoryName))
                     Directory.CreateDirectory(_logFile.DirectoryName);
 
-                _fmLogViewer.LogFileName = fileName;
-                _fmLogViewer.Text = Path.GetFileName(fileName);
+                _fmLogViewer.SetLogFilename(fileName);
             }
         }
         /// <summary>
@@ -129,7 +135,7 @@ namespace LogIO
             int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
             string fullMsg =
 #if DEBUG
-                "[DEBUG BUILD (LogIO.dll)]"+
+                "[DEBUG BUILD (LogIO.dll)]" +
 #endif
                 $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}{_timeZoneInfo.DisplayName}]" +
                 $"[{treadId}][{level}] {msg}{Environment.NewLine}";
@@ -200,8 +206,10 @@ namespace LogIO
         public void Show(int x, int y) => Show(new System.Drawing.Point(x, y));
         public void Show(System.Drawing.Point point)
         {
-            _fmLogViewer.Location = point;
+            if (_fmLogViewer.Visible)
+                return;
 
+            _fmLogViewer.Location = point;
             _fmLogViewer.Visible = true;
         }
         public void Hide() => _fmLogViewer.Visible = false;

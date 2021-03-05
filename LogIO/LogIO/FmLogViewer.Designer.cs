@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FmLogViewer));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._btnSwitchFile = new System.Windows.Forms.ToolStripMenuItem();
             this._btnOpenDirectory = new System.Windows.Forms.ToolStripMenuItem();
             this._btnSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -41,109 +42,98 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this._btnClear = new System.Windows.Forms.ToolStripMenuItem();
             this._tbxLog = new System.Windows.Forms.TextBox();
-            this._tbxLogfile = new System.Windows.Forms.ToolStripTextBox();
-            this._btnChangeFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileFToolStripMenuItem,
-            this.toolTToolStripMenuItem,
-            this._btnChangeFile,
-            this._tbxLogfile});
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
+            this.toolTToolStripMenuItem});
             this.menuStrip1.Name = "menuStrip1";
             // 
             // fileFToolStripMenuItem
             // 
+            resources.ApplyResources(this.fileFToolStripMenuItem, "fileFToolStripMenuItem");
             this.fileFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._btnSwitchFile,
             this._btnOpenDirectory,
             this._btnSave,
             this.toolStripSeparator1,
             this._btnExit});
             this.fileFToolStripMenuItem.Name = "fileFToolStripMenuItem";
-            resources.ApplyResources(this.fileFToolStripMenuItem, "fileFToolStripMenuItem");
+            // 
+            // _btnSwitchFile
+            // 
+            resources.ApplyResources(this._btnSwitchFile, "_btnSwitchFile");
+            this._btnSwitchFile.Name = "_btnSwitchFile";
+            this._btnSwitchFile.Click += new System.EventHandler(this._btnSwitchFile_Click);
             // 
             // _btnOpenDirectory
             // 
-            this._btnOpenDirectory.Name = "_btnOpenDirectory";
             resources.ApplyResources(this._btnOpenDirectory, "_btnOpenDirectory");
+            this._btnOpenDirectory.Name = "_btnOpenDirectory";
             this._btnOpenDirectory.Click += new System.EventHandler(this._btnOpenDirectory_Click);
             // 
             // _btnSave
             // 
-            this._btnSave.Name = "_btnSave";
             resources.ApplyResources(this._btnSave, "_btnSave");
+            this._btnSave.Name = "_btnSave";
             this._btnSave.Click += new System.EventHandler(this._btnSave_Click);
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
             // 
             // _btnExit
             // 
-            this._btnExit.Name = "_btnExit";
             resources.ApplyResources(this._btnExit, "_btnExit");
+            this._btnExit.Name = "_btnExit";
             this._btnExit.Click += new System.EventHandler(this._btnExit_Click);
             // 
             // toolTToolStripMenuItem
             // 
+            resources.ApplyResources(this.toolTToolStripMenuItem, "toolTToolStripMenuItem");
             this.toolTToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._btnRefresh,
             this._btnTogleAutoRefresh,
             this.toolStripSeparator2,
             this._btnClear});
             this.toolTToolStripMenuItem.Name = "toolTToolStripMenuItem";
-            resources.ApplyResources(this.toolTToolStripMenuItem, "toolTToolStripMenuItem");
             // 
             // _btnRefresh
             // 
-            this._btnRefresh.Name = "_btnRefresh";
             resources.ApplyResources(this._btnRefresh, "_btnRefresh");
+            this._btnRefresh.Name = "_btnRefresh";
             this._btnRefresh.Click += new System.EventHandler(this._btnRefresh_Click);
             // 
             // _btnTogleAutoRefresh
             // 
+            resources.ApplyResources(this._btnTogleAutoRefresh, "_btnTogleAutoRefresh");
             this._btnTogleAutoRefresh.Checked = true;
             this._btnTogleAutoRefresh.CheckState = System.Windows.Forms.CheckState.Checked;
             this._btnTogleAutoRefresh.Name = "_btnTogleAutoRefresh";
-            resources.ApplyResources(this._btnTogleAutoRefresh, "_btnTogleAutoRefresh");
             this._btnTogleAutoRefresh.CheckedChanged += new System.EventHandler(this._btnTogleAutoRefresh_CheckedChanged);
             this._btnTogleAutoRefresh.Click += new System.EventHandler(this._btnTogleAutoRefresh_Click);
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
             // 
             // _btnClear
             // 
-            this._btnClear.Name = "_btnClear";
             resources.ApplyResources(this._btnClear, "_btnClear");
+            this._btnClear.Name = "_btnClear";
             this._btnClear.Click += new System.EventHandler(this._btnClear_Click);
             // 
             // _tbxLog
             // 
             resources.ApplyResources(this._tbxLog, "_tbxLog");
             this._tbxLog.Name = "_tbxLog";
-            // 
-            // _tbxLogfile
-            // 
-            this._tbxLogfile.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this._tbxLogfile.Name = "_tbxLogfile";
-            resources.ApplyResources(this._tbxLogfile, "_tbxLogfile");
-            // 
-            // _btnChangeFile
-            // 
-            this._btnChangeFile.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this._btnChangeFile.Image = global::LogIO.Properties.Resources.file_icon;
-            this._btnChangeFile.Name = "_btnChangeFile";
-            resources.ApplyResources(this._btnChangeFile, "_btnChangeFile");
-            this._btnChangeFile.Click += new System.EventHandler(this._btnChangeFile_Click);
             // 
             // FmLogViewer
             // 
@@ -175,7 +165,6 @@
         private System.Windows.Forms.ToolStripMenuItem _btnOpenDirectory;
         private System.Windows.Forms.ToolStripMenuItem _btnTogleAutoRefresh;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripTextBox _tbxLogfile;
-        private System.Windows.Forms.ToolStripMenuItem _btnChangeFile;
+        private System.Windows.Forms.ToolStripMenuItem _btnSwitchFile;
     }
 }

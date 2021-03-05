@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LogIO.Properties;
 
 namespace LogIO
 {
@@ -15,9 +16,8 @@ namespace LogIO
         public static FmLogViewer GetFmLogViewer() => _logViewer;
         private static readonly FmLogViewer _logViewer = new FmLogViewer();
         static readonly object _lockObj = new object();
-        public string LogFileName { get; set; }
 
-        public event Action ChangedLogFile = null;
+        public event Action<string> ChangedLogFile = null;
 
         readonly System.Timers.Timer _timer;
         private FmLogViewer()
@@ -26,7 +26,7 @@ namespace LogIO
 
             _stringBuilder = new StringBuilder
             {
-                Capacity = 1 * 1024 ,
+                Capacity = 1 * 1024,
             };
 
             StartPosition = FormStartPosition.Manual;
@@ -39,7 +39,8 @@ namespace LogIO
             };
             _timer.Elapsed += (s, e) => RefreshLog();
         }
-        private readonly StringBuilder _stringBuilder =null;
+        private readonly StringBuilder _stringBuilder = null;
+        private string _logFileName;
 
         private void FmLogViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -50,10 +51,10 @@ namespace LogIO
         {
             lock (_lockObj)
                 _stringBuilder.Append(text);
-        }       
+        }
         void RefreshLog()
         {
-            if(InvokeRequired)
+            if (InvokeRequired)
             {
                 Invoke((Action)(() => RefreshLog()));
                 return;
@@ -62,7 +63,7 @@ namespace LogIO
             {
                 if (_stringBuilder.Length < 1)
                     return;
-                string text=_stringBuilder.ToString();
+                string text = _stringBuilder.ToString();
                 _tbxLog.AppendText(text);
 
                 _stringBuilder.Clear();
@@ -70,14 +71,17 @@ namespace LogIO
         }
         private void _btnSave_Click(object sender, EventArgs e)
         {
-            RefreshLog();
-            string text = _tbxLog.Text;
+            //RefreshLog();
+            string text = null;
+            lock (_lockObj)
+                text = _tbxLog.Text;
+
             if (string.IsNullOrWhiteSpace(text))
                 return;
 
             using (var sfd = new SaveFileDialog
             {
-                Filter = "LOG|*log",
+                Filter = "LOG|*.log",
                 OverwritePrompt = true,
             })
             {
@@ -117,7 +121,7 @@ namespace LogIO
 
         private void _btnOpenDirectory_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("EXPLORER.EXE", $@"/n,""{System.IO.Path.GetDirectoryName(LogFileName)}""");
+            System.Diagnostics.Process.Start("EXPLORER.EXE", $@"/n,""{System.IO.Path.GetDirectoryName(_logFileName)}""");
         }
 
         private void _btnTogleAutoRefresh_Click(object sender, EventArgs e)
@@ -130,9 +134,32 @@ namespace LogIO
             _timer.Enabled = _btnTogleAutoRefresh.Checked;
         }
 
-        private void _btnChangeFile_Click(object sender, EventArgs e)
+        private void _btnSwitchFile_Click(object sender, EventArgs e)
         {
+            using (var sfd = new SaveFileDialog
+            {
+                Filter = "LOG|*.log",
+                OverwritePrompt = false,
+                Title = Resources.MsgChangeLogFile,
+                InitialDirectory = System.IO.Path.GetDirectoryName(_logFileName)
 
+            })
+            {
+                if (sfd.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                ChangedLogFile?.BeginInvoke(sfd.FileName, null, null);
+            }
+        }
+        public void SetLogFilename(string log)
+        {
+            if (InvokeRequired)
+            {
+                Invoke((Action)(() => SetLogFilename(log)));
+                return;
+            }
+            _logFileName = log;
+            Text = System.IO.Path.GetFileName(log);
         }
     }
 }

@@ -61,12 +61,11 @@ namespace LogIO.Properties {
         }
         
         /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        ///   Change log finename. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap file_icon {
+        internal static string MsgChangeLogFile {
             get {
-                object obj = ResourceManager.GetObject("file_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("MsgChangeLogFile", resourceCulture);
             }
         }
     }
