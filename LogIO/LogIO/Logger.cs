@@ -7,6 +7,9 @@ using System.IO;
 
 namespace LogIO
 {
+    /// <summary>
+    /// Utillity logger
+    /// </summary>
     public class Logger
     {
         private readonly static Logger _logger = new Logger();
@@ -16,13 +19,17 @@ namespace LogIO
 
         FileInfo _logFile = null;
         private readonly object _lockObj = new object();
+        /// <summary>
+        /// Getter instance (singleton)
+        /// </summary>
+        /// <returns></returns>
         public static Logger GetInstance() => _logger;
 
         private readonly StringBuilder _stringBuilder = new StringBuilder();
         /// <summary>
         /// unit: Byte
         /// Minimum size is 100 KB. 
-        /// Default size is 10 MB
+        /// Default size is 1 MB
         /// </summary>
         public int MaxFileSize
         {
@@ -53,24 +60,43 @@ namespace LogIO
         }
 
         private LogLevel _logLevel = LogLevel.None;
+        /// <summary>
+        /// Setter log level
+        /// </summary>
+        /// <param name="logLevel">log level</param>
         public void SetLogLevel(LogLevel logLevel) => _logLevel = logLevel;
         Func<string, string> _encrypt = null;
-        private int _maxFileSize = 10 * 1024 * 1024;
+        private int _maxFileSize = 1 * 1024 * 1024;
         private int _bufferSize = 10 * 1024;
-
-        public void SetEncryptFunc(Func<string, string> encriptionFunc) => _encrypt = encriptionFunc;
+        /// <summary>
+        /// Set encrypter
+        /// </summary>
+        /// <param name="encryptionFunc">encrypt function</param>
+        public void SetEncryptFunc(Func<string, string> encryptionFunc) => _encrypt = encryptionFunc;
+        /// <summary>
+        /// Enable to encrypt
+        /// </summary>
         public bool EnableEncryption { get; set; } = false;
+        /// <summary>
+        /// Enable to output log as file.(default true)
+        /// </summary>
         public bool EnableOutputFile { get; set; } = true;
+        /// <summary>
+        /// Enable to output log as file.(default false)
+        /// </summary>
         public bool EnableOutputConsole { get; set; } = false;
+
         private Logger()
         {
-            MaxFileSize = 10 * 1024;
-
             _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
 
             ChangeLogFile($@"log\{DateTime.Now.ToString("yyMMdd_HHmmss")}_log.log");
         }
 
+        /// <summary>
+        /// Change file path.
+        /// </summary>
+        /// <param name="fileName"></param>
         public void ChangeLogFile(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName) ||
@@ -88,37 +114,43 @@ namespace LogIO
             }
         }
         /// <summary>
-        /// 
+        /// Out exception log
         /// </summary>
-        /// <param name="msg"></param>
+        /// <param name="msg">Message</param>
         public void Error(string msg) => Out(LogLevel.Error, msg);
 
         /// <summary>
-        /// 
+        /// Out exception message and stack trace
         /// </summary>
-        /// <param name="ex"></param>
+        /// <param name="ex">Exception</param>
         public void Error(Exception ex) => Out(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
 
         /// <summary>
-        /// 
+        /// Out warning log
         /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="sync"></param>
+        /// <param name="msg">Message</param>
+        /// <param name="sync">Synced flush</param>
         public void Warn(string msg, bool sync = true) => Out(LogLevel.Warning, msg, sync);
+        /// <summary>
+        /// Out information log
+        /// </summary>
+        /// <param name="msg">Message</param>
+        /// <param name="sync">Synced flush</param>
         public void Info(string msg, bool sync = true) => Out(LogLevel.Information, msg, sync);
 
         /// <summary>
-        /// 
+        /// Out debug log
         /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="sync"></param>
+        /// <param name="msg">Message</param>
+        /// <param name="sync">Synced flush</param>
         public void Debug(string msg, bool sync = true) => Out(LogLevel.Debug, msg);
+
         readonly System.TimeZoneInfo _timeZoneInfo = System.TimeZoneInfo.Local;
         /// <summary>
         /// ログを出力する
         /// </summary>
-        /// <param name="level">ログレベル</param>
-        /// <param name="msg">メッセージ</param>
+        /// <param name="level">Log level</param>
+        /// <param name="msg">Message</param>
         /// <param name="sync">Synced flush</param>
         private void Out(LogLevel level, string msg, bool sync = true)
         {
@@ -153,7 +185,7 @@ namespace LogIO
             }
             _logFile = new FileInfo(LogFilePath);
             if (_logFile.Exists &&
-                _logFile.Length > (long)MaxFileSize * 1024)
+                _logFile.Length > (long)MaxFileSize)
             {
                 RotateLogFile();
             }
@@ -172,6 +204,9 @@ namespace LogIO
             if (_stringBuilder.Length > BufferSize * 0.8)
                 Flush();
         }
+        /// <summary>
+        /// Flush buffer data.
+        /// </summary>
         public void Flush()
         {
             if (_stringBuilder.Length < 1)
@@ -203,7 +238,16 @@ namespace LogIO
                 File.Move(LogFilePath, oldFilePath);
             }
         }
+        /// <summary>
+        /// Show Logger control
+        /// </summary>
+        /// <param name="x">Position X</param>
+        /// <param name="y">Position Y</param>
         public void Show(int x, int y) => Show(new System.Drawing.Point(x, y));
+        /// <summary>
+        /// Show Logger control
+        /// </summary>
+        /// <param name="point">Position</param>
         public void Show(System.Drawing.Point point)
         {
             if (_fmLogViewer.Visible)
@@ -212,6 +256,9 @@ namespace LogIO
             _fmLogViewer.Location = point;
             _fmLogViewer.Visible = true;
         }
+        /// <summary>
+        /// Hide Logger control
+        /// </summary>
         public void Hide() => _fmLogViewer.Visible = false;
     }
 }

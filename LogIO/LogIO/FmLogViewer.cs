@@ -26,7 +26,7 @@ namespace LogIO
 
             _stringBuilder = new StringBuilder
             {
-                Capacity = 1 * 1024,
+                Capacity = 10 * 1024,
             };
 
             StartPosition = FormStartPosition.Manual;
@@ -71,7 +71,6 @@ namespace LogIO
         }
         private void _btnSave_Click(object sender, EventArgs e)
         {
-            //RefreshLog();
             string text = null;
             lock (_lockObj)
                 text = _tbxLog.Text;
