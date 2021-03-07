@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 using LogIO.Properties;
 
 namespace LogIO
@@ -87,6 +88,18 @@ namespace LogIO
         /// </summary>
         public bool EnableOutputConsole { get; set; } = false;
 
+        private string ConvertControlChar(string inputStr)
+        {
+            var outputStr = Regex.Replace(inputStr, @"\p{Cc}", str =>
+            {
+                int offset = str.Value[0];
+                if (Enum.IsDefined(typeof(ControlCharacters), (byte)offset))
+                    return $"<{(ControlCharacters)offset}>";
+                else
+                    return $"<{offset:X2}>";
+            });
+            return outputStr;
+        }
         private Logger()
         {
             _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
@@ -163,16 +176,19 @@ namespace LogIO
             if (string.IsNullOrWhiteSpace(msg))
                 return;
 
-
             lock (_lockObj)
             {
                 int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+
+                //if (msg.Any(x => char.IsControl(x)))
+                msg = ConvertControlChar(msg);
+
                 string fullMsg =
 #if DEBUG
                 "[DEBUG BUILD (LogIO.dll)]" +
 #endif
                 $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}{_timeZoneInfo.DisplayName}]" +
-                    $"[{treadId}][{level}] {msg}{Environment.NewLine}";
+                $"[{treadId}][{level}] {msg}{Environment.NewLine}";
                 if (EnableEncryption && _encrypt != null)
                     fullMsg = _encrypt(fullMsg);
 
