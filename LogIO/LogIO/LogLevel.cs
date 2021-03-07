@@ -31,5 +31,9 @@ namespace LogIO
         /// For error
         /// </summary>
         Error,
+        /// <summary>
+        /// For crisis
+        /// </summary>
+        Crisis
     }
 }

@@ -88,18 +88,6 @@ namespace LogIO
         /// </summary>
         public bool EnableOutputConsole { get; set; } = false;
 
-        private string ConvertControlChar(string inputStr)
-        {
-            var outputStr = Regex.Replace(inputStr, @"\p{Cc}", str =>
-            {
-                int offset = str.Value[0];
-                if (Enum.IsDefined(typeof(ControlCharacters), (byte)offset))
-                    return $"<{(ControlCharacters)offset}>";
-                else
-                    return $"<{offset:X2}>";
-            });
-            return outputStr;
-        }
         private Logger()
         {
             _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
@@ -132,10 +120,16 @@ namespace LogIO
         public void Error(string msg) => Out(LogLevel.Error, msg);
 
         /// <summary>
-        /// Out exception message and stack trace
+        /// Out exception message
         /// </summary>
         /// <param name="ex">Exception</param>
-        public void Error(Exception ex) => Out(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
+        public void Error(Exception ex) => Out(LogLevel.Error, $"{ex.Message}");
+
+        /// <summary>
+        /// Out critical exception message and stack trace
+        /// </summary>
+        /// <param name="ex">Exception</param>
+        public void Critical(Exception ex)=> Out(LogLevel.Crisis, $"{ex.Message} ({ex.StackTrace})");
 
         /// <summary>
         /// Out warning log
@@ -180,8 +174,8 @@ namespace LogIO
             {
                 int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
-                //if (msg.Any(x => char.IsControl(x)))
-                msg = ConvertControlChar(msg);
+                if (msg.Any(x => char.IsControl(x)))
+                    msg = ConvertControlChar(msg);
 
                 string fullMsg =
 #if DEBUG
@@ -206,6 +200,20 @@ namespace LogIO
 
             }
         }
+
+        private string ConvertControlChar(string inputStr)
+        {
+            var outputStr = Regex.Replace(inputStr, @"\p{Cc}", str =>
+            {
+                int offset = str.Value[0];
+                if (Enum.IsDefined(typeof(ControlCharacters), (byte)offset))
+                    return $"<{(ControlCharacters)offset}>";
+                else
+                    return $"<{offset:X2}>";
+            });
+            return outputStr;
+        }
+
         private void WriteSync(string line)
         {
             _stringBuilder.Append(line);
@@ -227,8 +235,7 @@ namespace LogIO
             if (_stringBuilder.Length < 1)
                 return;
             var text = _stringBuilder.ToString();
-
-            _fmLogViewer.AppendText(text);
+            _stringBuilder.Clear();
 
             if (EnableOutputFile)
             {
@@ -241,7 +248,7 @@ namespace LogIO
             if (EnableOutputConsole)
                 Console.Write(text);
 
-            _stringBuilder.Clear();
+            _fmLogViewer.AppendText(text);
         }
         private void RotateLogFile()
         {
