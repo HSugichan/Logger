@@ -68,5 +68,14 @@ namespace LogIO.Properties {
                 return ResourceManager.GetString("MsgChangeLogFile", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   LOG に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string TxtLog {
+            get {
+                return ResourceManager.GetString("TxtLog", resourceCulture);
+            }
+        }
     }
 }

@@ -78,9 +78,9 @@ namespace LogIO
         /// </summary>
         public bool EnableEncryption { get; set; } = false;
         /// <summary>
-        /// Enable to output log as file.(default true)
+        /// Enable to output log as file.(default false)
         /// </summary>
-        public bool EnableOutputFile { get; set; } = true;
+        public bool EnableOutputFile { get; set; } = false;
         /// <summary>
         /// Enable to output log as file.(default false)
         /// </summary>
@@ -100,15 +100,13 @@ namespace LogIO
         public void ChangeLogFile(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName) ||
-                fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0)
+                fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
                 return;
 
             // ログファイルを生成する
             lock (_lockObj)
             {
                 _logFile = new FileInfo(fileName);
-                if (!Directory.Exists(_logFile.DirectoryName))
-                    Directory.CreateDirectory(_logFile.DirectoryName);
 
                 _fmLogViewer.SetLogFilename(fileName);
             }
@@ -147,7 +145,7 @@ namespace LogIO
 
         readonly System.TimeZoneInfo _timeZoneInfo = System.TimeZoneInfo.Local;
         /// <summary>
-        /// ログを出力する
+        /// Output log
         /// </summary>
         /// <param name="level">Log level</param>
         /// <param name="msg">Message</param>
@@ -179,11 +177,9 @@ namespace LogIO
                 if (sync)
                     WriteSync(fullMsg);
                 else
-                {
                     WriteAsync(fullMsg);
-                }
             }
-            _logFile = new FileInfo(LogFilePath);
+            _logFile = new FileInfo(LogFilePath);//To update file length
             if (_logFile.Exists &&
                 _logFile.Length > (long)MaxFileSize)
             {
@@ -216,7 +212,13 @@ namespace LogIO
             _fmLogViewer.AppendText(text);
 
             if (EnableOutputFile)
-                File.AppendAllText(LogFilePath, text);
+            {
+                if (!Directory.Exists(_logFile.DirectoryName))
+                    Directory.CreateDirectory(_logFile.DirectoryName);
+
+                File.AppendAllText(_logFile.FullName, text);
+            }
+
             if (EnableOutputConsole)
                 Console.Write(text);
 

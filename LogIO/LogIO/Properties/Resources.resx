@@ -120,4 +120,7 @@
   <data name="MsgChangeLogFile" xml:space="preserve">
     <value>Change log finename.</value>
   </data>
+  <data name="TxtLog" xml:space="preserve">
+    <value>LOG</value>
+  </data>
 </root>

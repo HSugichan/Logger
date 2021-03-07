@@ -120,4 +120,7 @@
   <data name="MsgChangeLogFile" xml:space="preserve">
     <value>ログファイル名を変更します。</value>
   </data>
+  <data name="TxtLog" xml:space="preserve">
+    <value>ログ</value>
+  </data>
 </root>

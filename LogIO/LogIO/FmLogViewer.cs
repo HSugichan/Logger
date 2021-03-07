@@ -80,7 +80,7 @@ namespace LogIO
 
             using (var sfd = new SaveFileDialog
             {
-                Filter = "LOG|*.log",
+                Filter = $"{Resources.TxtLog}|*.log",
                 OverwritePrompt = true,
             })
             {
@@ -95,8 +95,8 @@ namespace LogIO
         {
             if (Visible)
             {
-                RefreshLog();
                 _timer.Start();
+                RefreshLog();
             }
             else
                 _timer.Stop();
@@ -137,7 +137,7 @@ namespace LogIO
         {
             using (var sfd = new SaveFileDialog
             {
-                Filter = "LOG|*.log",
+                Filter = $"{Resources.TxtLog}|*.log",
                 OverwritePrompt = false,
                 Title = Resources.MsgChangeLogFile,
                 InitialDirectory = System.IO.Path.GetDirectoryName(_logFileName)
