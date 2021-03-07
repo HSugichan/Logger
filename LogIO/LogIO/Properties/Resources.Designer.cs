@@ -70,6 +70,15 @@ namespace LogIO.Properties {
         }
         
         /// <summary>
+        ///   There are INVALID characters in path. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MsgErrInvalidPath {
+            get {
+                return ResourceManager.GetString("MsgErrInvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   LOG に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string TxtLog {

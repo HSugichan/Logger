@@ -120,6 +120,9 @@
   <data name="MsgChangeLogFile" xml:space="preserve">
     <value>ログファイル名を変更します。</value>
   </data>
+  <data name="MsgErrInvalidPath" xml:space="preserve">
+    <value>パス名に無効な文字が使われています。</value>
+  </data>
   <data name="TxtLog" xml:space="preserve">
     <value>ログ</value>
   </data>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using LogIO.Properties;
 
 namespace LogIO
 {
@@ -100,8 +101,8 @@ namespace LogIO
         public void ChangeLogFile(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName) ||
-                fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-                return;
+                fileName.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+                throw new Exception(Resources.MsgErrInvalidPath);
 
             // ログファイルを生成する
             lock (_lockObj)
@@ -162,30 +163,32 @@ namespace LogIO
             if (string.IsNullOrWhiteSpace(msg))
                 return;
 
-            int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
-            string fullMsg =
+
+            lock (_lockObj)
+            {
+                int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+                string fullMsg =
 #if DEBUG
                 "[DEBUG BUILD (LogIO.dll)]" +
 #endif
                 $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}{_timeZoneInfo.DisplayName}]" +
-                $"[{treadId}][{level}] {msg}{Environment.NewLine}";
-            if (EnableEncryption && _encrypt != null)
-                fullMsg = _encrypt(fullMsg);
+                    $"[{treadId}][{level}] {msg}{Environment.NewLine}";
+                if (EnableEncryption && _encrypt != null)
+                    fullMsg = _encrypt(fullMsg);
 
-            lock (_lockObj)
-            {
                 if (sync)
                     WriteSync(fullMsg);
                 else
                     WriteAsync(fullMsg);
-            }
-            _logFile = new FileInfo(LogFilePath);//To update file length
-            if (_logFile.Exists &&
-                _logFile.Length > (long)MaxFileSize)
-            {
-                RotateLogFile();
-            }
 
+                _logFile = new FileInfo(LogFilePath);//To update file length
+                if (_logFile.Exists &&
+                    _logFile.Length > (long)MaxFileSize)
+                {
+                    RotateLogFile();
+                }
+
+            }
         }
         private void WriteSync(string line)
         {
@@ -226,19 +229,16 @@ namespace LogIO
         }
         private void RotateLogFile()
         {
-            lock (_lockObj)
+            string oldFilePath = _logFile.FullName;
+
+            for (int i = 1; i < 1000; i++)
             {
-                string oldFilePath = _logFile.FullName;
+                oldFilePath = $@"{_logFile.DirectoryName}\{Path.GetFileNameWithoutExtension(_logFile.FullName)}({i}).log";
 
-                for (int i = 1; i < 1000; i++)
-                {
-                    oldFilePath = $@"{_logFile.DirectoryName}\{Path.GetFileNameWithoutExtension(_logFile.FullName)}({i}).log";
-
-                    if (!File.Exists(oldFilePath))
-                        break;
-                }
-                File.Move(LogFilePath, oldFilePath);
+                if (!File.Exists(oldFilePath))
+                    break;
             }
+            File.Move(LogFilePath, oldFilePath);
         }
         /// <summary>
         /// Show Logger control
