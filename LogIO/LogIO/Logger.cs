@@ -87,6 +87,10 @@ namespace LogIO
         /// Enable to output log as file.(default false)
         /// </summary>
         public bool EnableOutputConsole { get; set; } = false;
+        /// <summary>
+        /// Enable to output log to viewer.(default false)
+        /// </summary>
+        public bool EnableOutputViewer { get; set; } = false;
 
         private Logger()
         {
@@ -248,7 +252,8 @@ namespace LogIO
             if (EnableOutputConsole)
                 Console.Write(text);
 
-            _fmLogViewer.AppendText(text);
+            if(EnableOutputViewer)
+                _fmLogViewer.AppendText(text);
         }
         private void RotateLogFile()
         {
