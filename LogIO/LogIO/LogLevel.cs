@@ -16,13 +16,13 @@ namespace LogIO
         /// </summary>
         None = 0,
         /// <summary>
+        /// For debug
+        /// </summary>
+        Debug = 1,
+        /// <summary>
         /// For information
         /// </summary>
         Information,
-        /// <summary>
-        /// For debug
-        /// </summary>
-        Debug,
         /// <summary>
         /// For warning
         /// </summary>

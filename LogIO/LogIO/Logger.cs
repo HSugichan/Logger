@@ -11,6 +11,7 @@ namespace LogIO
 {
     /// <summary>
     /// Utillity logger
+    /// Ref. https://qiita.com/yun_bow/items/24f38179d1e92c9b7fd3
     /// </summary>
     public class Logger
     {
