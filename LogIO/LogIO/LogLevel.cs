@@ -12,15 +12,19 @@ namespace LogIO
     public enum LogLevel
     {
         /// <summary>
-        /// None(default)
+        /// None
         /// </summary>
         None = 0,
         /// <summary>
-        /// For debug
+        /// For performance log
         /// </summary>
-        Debug = 1,
+        Trace,
         /// <summary>
-        /// For information
+        /// For debug log
+        /// </summary>
+        Debug,
+        /// <summary>
+        /// For information log (send/recieve data, access date-time, etc.)
         /// </summary>
         Information,
         /// <summary>

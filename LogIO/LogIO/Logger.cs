@@ -96,7 +96,11 @@ namespace LogIO
         private Logger()
         {
             _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
-
+#if DEBUG
+            SetLogLevel(LogLevel.None);
+#else
+            SetLogLevel(LogLevel.Information);
+#endif
             ChangeLogFile($@"log\{DateTime.Now.ToString("yyMMdd_HHmmss")}_log.log");
         }
 
@@ -154,7 +158,13 @@ namespace LogIO
         /// </summary>
         /// <param name="msg">Message</param>
         /// <param name="sync">Synced flush</param>
-        public void Debug(string msg, bool sync = true) => Out(LogLevel.Debug, msg);
+        public void Debug(string msg, bool sync = true) => Out(LogLevel.Debug, msg, sync);
+        /// <summary>
+        /// Out trace log
+        /// </summary>
+        /// <param name="msg">Message</param>
+        /// <param name="sync">Synced flush</param>
+        public void Trace(string msg, bool sync = true) => Out(LogLevel.Trace, msg, sync);
 
         readonly System.TimeZoneInfo _timeZoneInfo = System.TimeZoneInfo.Local;
         /// <summary>
