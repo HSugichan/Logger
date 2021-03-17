@@ -81,11 +81,11 @@ namespace LogIO
         /// </summary>
         public bool EnableEncryption { get; set; } = false;
         /// <summary>
-        /// Enable to output log as file.(default false)
+        /// Enable to output log to file.(default false)
         /// </summary>
         public bool EnableOutputFile { get; set; } = false;
         /// <summary>
-        /// Enable to output log as file.(default false)
+        /// Enable to output log to console.(default false)
         /// </summary>
         public bool EnableOutputConsole { get; set; } = false;
         /// <summary>
@@ -97,9 +97,9 @@ namespace LogIO
         {
             _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
 #if DEBUG
-            SetLogLevel(LogLevel.None);
+            SetLogLevel(LogLevel.Trace);
 #else
-            SetLogLevel(LogLevel.Information);
+            SetLogLevel(LogLevel.None);
 #endif
             ChangeLogFile($@"log\{DateTime.Now.ToString("yyMMdd_HHmmss")}_log.log");
         }
@@ -175,10 +175,12 @@ namespace LogIO
         /// <param name="sync">Synced flush</param>
         private void Out(LogLevel level, string msg, bool sync = true)
         {
-            if (!EnableOutputFile && !EnableOutputConsole)//Neither file or console is enable to output
+            if (!EnableOutputFile &&
+                !EnableOutputConsole && 
+                !EnableOutputViewer)//None output is enable
                 return;
 #if !DEBUG
-            if (level < _logLevel)
+            if (_logLevel == LogLevel.None || level < _logLevel)
                 return;
 #endif
 

@@ -12,7 +12,7 @@ namespace LogIO
     public enum LogLevel
     {
         /// <summary>
-        /// None
+        /// None 
         /// </summary>
         None = 0,
         /// <summary>
