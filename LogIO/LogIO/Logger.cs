@@ -122,6 +122,11 @@ namespace LogIO
                 fileName.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
                 throw new Exception(Resources.MsgErrInvalidPath);
 
+            fileName = Path.GetFullPath(fileName);
+
+            if (_logFile != null &&
+                _logFile.FullName.Equals(fileName))
+                return;
             // ログファイルを生成する
             lock (_lockObj)
             {
