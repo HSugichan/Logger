@@ -12,9 +12,9 @@ namespace LogIO
     public enum LogLevel
     {
         /// <summary>
-        /// None 
+        /// All (None filter)
         /// </summary>
-        None = 0,
+        All,
         /// <summary>
         /// For performance log
         /// </summary>
@@ -38,6 +38,10 @@ namespace LogIO
         /// <summary>
         /// For crisis
         /// </summary>
-        Crisis
+        Crisis,
+        /// <summary>
+        /// No out log
+        /// </summary>
+        None = 99,
     }
 }

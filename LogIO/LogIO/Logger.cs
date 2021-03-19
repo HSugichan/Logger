@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 using LogIO.Properties;
+using System.Reflection;
 
 namespace LogIO
 {
@@ -93,8 +94,15 @@ namespace LogIO
         /// </summary>
         public bool EnableOutputViewer { get; set; } = false;
 
+        private readonly string _asmInfo;
+
         private Logger()
         {
+            var exeAsm = Assembly.GetEntryAssembly().GetName();
+            var dllAsm = Assembly.GetExecutingAssembly().GetName();
+            var insertTexts = new string[] { $"{exeAsm.Name}({exeAsm.Version})", $"{dllAsm.Name}({dllAsm.Version})" };
+            _asmInfo = $"{string.Join(Environment.NewLine, insertTexts)}{Environment.NewLine}";
+
             _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
 #if DEBUG
             SetLogLevel(LogLevel.Trace);
@@ -120,7 +128,14 @@ namespace LogIO
                 _logFile = new FileInfo(fileName);
 
                 _fmLogViewer.SetLogFilename(fileName);
+
+                OutAsmInfo();
             }
+            
+        }
+        private void OutAsmInfo()
+        {
+            _stringBuilder.Insert(0, _asmInfo);
         }
         /// <summary>
         /// Out exception log
