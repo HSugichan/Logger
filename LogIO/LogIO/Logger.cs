@@ -125,7 +125,7 @@ namespace LogIO
             fileName = Path.GetFullPath(fileName);
 
             if (_logFile != null &&
-                _logFile.FullName.Equals(fileName))
+                _logFile.FullName.Equals(fileName, StringComparison.OrdinalIgnoreCase))
                 return;
             // ログファイルを生成する
             lock (_lockObj)
