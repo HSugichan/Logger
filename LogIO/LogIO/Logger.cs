@@ -94,6 +94,12 @@ namespace LogIO
         /// </summary>
         public bool EnableOutputViewer { get; set; } = false;
 
+        private Action<string> _outLog = null;
+        /// <summary>
+        /// To out log to EXE UI.
+        /// </summary>
+        /// <param name="outLog"></param>
+        public void SetOutLogFunc(Action<string> outLog) => _outLog = outLog;
         private readonly string _asmInfo;
 
         private Logger()
@@ -133,14 +139,8 @@ namespace LogIO
                 _logFile = new FileInfo(fileName);
 
                 _fmLogViewer.SetLogFilename(fileName);
-
-                OutAsmInfo();
             }
             
-        }
-        private void OutAsmInfo()
-        {
-            _stringBuilder.Insert(0, _asmInfo);
         }
         /// <summary>
         /// Out exception log
@@ -287,6 +287,8 @@ namespace LogIO
 
             if(EnableOutputViewer)
                 _fmLogViewer.AppendText(text);
+
+            _outLog?.Invoke(text);
         }
         private void RotateLogFile()
         {
