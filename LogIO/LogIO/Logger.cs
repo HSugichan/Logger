@@ -100,14 +100,12 @@ namespace LogIO
         /// </summary>
         /// <param name="outLog"></param>
         public void SetOutLogFunc(Action<string> outLog) => _outLog = outLog;
-        private readonly string _asmInfo;
 
         private Logger()
         {
             var exeAsm = Assembly.GetEntryAssembly().GetName();
             var dllAsm = Assembly.GetExecutingAssembly().GetName();
             var insertTexts = new string[] { $"{exeAsm.Name}({exeAsm.Version})", $"{dllAsm.Name}({dllAsm.Version})" };
-            _asmInfo = $"{string.Join(Environment.NewLine, insertTexts)}{Environment.NewLine}";
 
             _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
 #if DEBUG
@@ -130,9 +128,6 @@ namespace LogIO
 
             fileName = Path.GetFullPath(fileName);
 
-            if (_logFile != null &&
-                _logFile.FullName.Equals(fileName, StringComparison.OrdinalIgnoreCase))
-                return;
             // ログファイルを生成する
             lock (_lockObj)
             {
