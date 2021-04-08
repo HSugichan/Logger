@@ -12,10 +12,6 @@ namespace LogIO
     public enum LogLevel
     {
         /// <summary>
-        /// All (None filter)
-        /// </summary>
-        All,
-        /// <summary>
         /// For performance log
         /// </summary>
         Trace,
