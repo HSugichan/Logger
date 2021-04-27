@@ -103,10 +103,6 @@ namespace LogIO
 
         private Logger()
         {
-            var exeAsm = Assembly.GetEntryAssembly().GetName();
-            var dllAsm = Assembly.GetExecutingAssembly().GetName();
-            var insertTexts = new string[] { $"{exeAsm.Name}({exeAsm.Version})", $"{dllAsm.Name}({dllAsm.Version})" };
-
             _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
 #if DEBUG
             SetLogLevel(LogLevel.Trace);
