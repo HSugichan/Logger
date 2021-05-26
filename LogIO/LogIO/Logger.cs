@@ -211,8 +211,6 @@ namespace LogIO
 #endif
                 $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}{_timeZoneInfo.DisplayName}]" +
                 $"[{treadId}][{level}] {msg}{Environment.NewLine}";
-                if (EnableEncryption && _encrypt != null)
-                    fullMsg = _encrypt(fullMsg);
 
                 if (sync)
                     WriteSync(fullMsg);
@@ -265,21 +263,29 @@ namespace LogIO
             var text = _stringBuilder.ToString();
             _stringBuilder.Clear();
 
+            //Viewerに出すログは暗号化しない
+            string fullMsg = text;
+            if (EnableEncryption && _encrypt != null)
+                fullMsg = _encrypt(fullMsg);
+
             if (EnableOutputFile)
             {
                 if (!Directory.Exists(_logFile.DirectoryName))
                     Directory.CreateDirectory(_logFile.DirectoryName);
 
-                File.AppendAllText(_logFile.FullName, text);
+                File.AppendAllText(_logFile.FullName, fullMsg);
             }
 
             if (EnableOutputConsole)
-                Console.Write(text);
+                Console.Write(fullMsg);
 
-            if(EnableOutputViewer)
-                _fmLogViewer.AppendText(text);
-
-            _outLog?.Invoke(text);
+            if (EnableOutputViewer)
+            {
+                if (_outLog == null)
+                    _fmLogViewer.AppendText(text);
+                else
+                    _outLog(text);
+            }
         }
         private void RotateLogFile()
         {
