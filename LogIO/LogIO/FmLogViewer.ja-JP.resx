@@ -117,88 +117,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_btnSwitchFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+O</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="_btnSwitchFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 30</value>
+    <value>243, 22</value>
   </data>
   <data name="_btnSwitchFile.Text" xml:space="preserve">
     <value>ファイル切り替え(&amp;F)...</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="_btnOpenDirectory.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+O</value>
-  </data>
   <data name="_btnOpenDirectory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 30</value>
+    <value>243, 22</value>
   </data>
   <data name="_btnOpenDirectory.Text" xml:space="preserve">
     <value>ディレクトリを開く(&amp;O)</value>
   </data>
   <data name="_btnSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 30</value>
+    <value>243, 22</value>
   </data>
   <data name="_btnSave.Text" xml:space="preserve">
     <value>保存(&amp;S)...</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>302, 6</value>
+    <value>240, 6</value>
   </data>
   <data name="_btnExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 30</value>
+    <value>243, 22</value>
   </data>
   <data name="_btnExit.Text" xml:space="preserve">
     <value>閉じる(&amp;X)</value>
   </data>
   <data name="fileFToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>67, 19</value>
   </data>
   <data name="fileFToolStripMenuItem.Text" xml:space="preserve">
     <value>ファイル(&amp;F)</value>
   </data>
   <data name="_btnRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 30</value>
+    <value>194, 22</value>
   </data>
   <data name="_btnRefresh.Text" xml:space="preserve">
     <value>更新</value>
   </data>
   <data name="_btnTogleAutoRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 30</value>
+    <value>194, 22</value>
   </data>
   <data name="_btnTogleAutoRefresh.Text" xml:space="preserve">
     <value>自動更新</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
+    <value>191, 6</value>
   </data>
   <data name="_btnClear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 30</value>
+    <value>194, 22</value>
   </data>
   <data name="_btnClear.Text" xml:space="preserve">
     <value>消去</value>
   </data>
   <data name="toolTToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 29</value>
+    <value>60, 19</value>
   </data>
   <data name="toolTToolStripMenuItem.Text" xml:space="preserve">
     <value>ツール(&amp;T)</value>
   </data>
-  <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>17, 4, 0, 4</value>
-  </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>757, 37</value>
+    <value>454, 25</value>
   </data>
   <data name="_tbxLog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 37</value>
-  </data>
-  <data name="_tbxLog.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>8, 6, 8, 6</value>
+    <value>0, 25</value>
   </data>
   <data name="_tbxLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>757, 638</value>
+    <value>454, 425</value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>13, 9, 13, 9</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>454, 450</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>記録</value>

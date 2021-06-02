@@ -120,6 +120,13 @@
   <data name="&gt;&gt;_btnClear.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>757, 675</value>
+  </data>
+  <data name="fileFToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 29</value>
+  </data>
   <data name="&gt;&gt;fileFToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -131,15 +138,8 @@
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;_btnTogleAutoRefresh.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="_btnSwitchFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>352, 30</value>
-  </data>
-  <data name="&gt;&gt;_tbxLog.Name" xml:space="preserve">
-    <value>_tbxLog</value>
+  <data name="&gt;&gt;_tbxLog.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="_btnClear.Text" xml:space="preserve">
     <value>Clear</value>
@@ -165,8 +165,8 @@
   <data name="_tbxLog.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
   </data>
-  <data name="&gt;&gt;_tbxLog.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;_btnRefresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_tbxLog.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 35</value>
@@ -177,8 +177,8 @@
   <data name="&gt;&gt;_btnExit.Name" xml:space="preserve">
     <value>_btnExit</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>10, 18</value>
+  <data name="_btnSwitchFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>352, 30</value>
   </data>
   <data name="&gt;&gt;_tbxLog.Parent" xml:space="preserve">
     <value>$this</value>
@@ -186,8 +186,8 @@
   <data name="toolTToolStripMenuItem.Text" xml:space="preserve">
     <value>Tool(&amp;T)</value>
   </data>
-  <data name="fileFToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 29</value>
+  <data name="&gt;&gt;_tbxLog.Name" xml:space="preserve">
+    <value>_tbxLog</value>
   </data>
   <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 0, 3</value>
@@ -237,8 +237,8 @@
   <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;_btnRefresh.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="menuStrip1.Text" xml:space="preserve">
+    <value>menuStrip1</value>
   </data>
   <data name="&gt;&gt;toolTToolStripMenuItem.Name" xml:space="preserve">
     <value>toolTToolStripMenuItem</value>
@@ -255,9 +255,6 @@
   <data name="&gt;&gt;_btnSave.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="_btnTogleAutoRefresh.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+R</value>
-  </data>
   <data name="_btnSwitchFile.Text" xml:space="preserve">
     <value>Switch file...(&amp;F)</value>
   </data>
@@ -270,11 +267,11 @@
   <data name="fileFToolStripMenuItem.Text" xml:space="preserve">
     <value>File(&amp;F)</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="_btnTogleAutoRefresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>304, 30</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FmLogViewer</value>
   </data>
   <data name="&gt;&gt;_btnOpenDirectory.Name" xml:space="preserve">
     <value>_btnOpenDirectory</value>
@@ -288,8 +285,8 @@
   <data name="_btnSave.Size" type="System.Drawing.Size, System.Drawing">
     <value>352, 30</value>
   </data>
-  <data name="menuStrip1.Text" xml:space="preserve">
-    <value>menuStrip1</value>
+  <data name="&gt;&gt;_btnTogleAutoRefresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>757, 35</value>
@@ -306,17 +303,20 @@
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;_btnClear.Name" xml:space="preserve">
+    <value>_btnClear</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
     <value>toolStripSeparator1</value>
   </data>
+  <data name="&gt;&gt;_btnSwitchFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="_btnRefresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>304, 30</value>
   </data>
-  <data name="&gt;&gt;_btnSwitchFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="_btnTogleAutoRefresh.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+R</value>
   </data>
   <data name="_btnRefresh.Text" xml:space="preserve">
     <value>Refresh</value>
@@ -327,20 +327,20 @@
   <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
     <value>toolStripSeparator2</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>757, 675</value>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>FmLogViewer</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>8, 6, 8, 6</value>
   </data>
-  <data name="&gt;&gt;_btnClear.Name" xml:space="preserve">
-    <value>_btnClear</value>
-  </data>
   <data name="_btnOpenDirectory.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+O</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>10, 18</value>
   </data>
   <data name="&gt;&gt;_btnSave.Name" xml:space="preserve">
     <value>_btnSave</value>
