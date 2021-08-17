@@ -129,7 +129,7 @@ namespace LogIO
             {
                 _logFile = new FileInfo(fileName);
 
-                _fmLogViewer.SetLogFilename(fileName);
+                _fmLogViewer?.SetLogFilename(fileName);
             }
             
         }
@@ -207,10 +207,10 @@ namespace LogIO
 
                 string fullMsg =
 #if DEBUG
-                "[DEBUG BUILD (LogIO.dll)]" +
+                "[DEBUG BUILD (LogIO.dll)] " +
 #endif
                 $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}{_timeZoneInfo.DisplayName}]" +
-                $"[{treadId}][{level}] {msg}{Environment.NewLine}";
+                $" [{treadId}] [{level}] {msg}{Environment.NewLine}";
 
                 if (sync)
                     WriteSync(fullMsg);
