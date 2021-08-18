@@ -17,8 +17,6 @@ namespace LogIO
     public class Logger
     {
         private readonly static Logger _logger = new Logger();
-        private readonly FmLogViewer _fmLogViewer = FmLogViewer.GetFmLogViewer();
-
         private string LogFilePath => _logFile?.FullName;
 
         FileInfo _logFile = null;
@@ -103,7 +101,6 @@ namespace LogIO
 
         private Logger()
         {
-            _fmLogViewer.ChangedLogFile += (logfile) => ChangeLogFile(logfile);
 #if DEBUG
             SetLogLevel(LogLevel.Trace);
 #else
@@ -129,7 +126,6 @@ namespace LogIO
             {
                 _logFile = new FileInfo(fileName);
 
-                _fmLogViewer?.SetLogFilename(fileName);
             }
             
         }
@@ -280,12 +276,7 @@ namespace LogIO
                 Console.Write(fullMsg);
 
             if (EnableOutputViewer)
-            {
-                if (_outLog == null)
-                    _fmLogViewer.AppendText(text);
-                else
-                    _outLog(text);
-            }
+                _outLog?.Invoke(text);
         }
         private void RotateLogFile()
         {
@@ -300,27 +291,5 @@ namespace LogIO
             }
             File.Move(LogFilePath, oldFilePath);
         }
-        /// <summary>
-        /// Show Logger control
-        /// </summary>
-        /// <param name="x">Position X</param>
-        /// <param name="y">Position Y</param>
-        public void Show(int x, int y) => Show(new System.Drawing.Point(x, y));
-        /// <summary>
-        /// Show Logger control
-        /// </summary>
-        /// <param name="point">Position</param>
-        public void Show(System.Drawing.Point point)
-        {
-            if (_fmLogViewer.Visible)
-                return;
-
-            _fmLogViewer.Location = point;
-            _fmLogViewer.Visible = true;
-        }
-        /// <summary>
-        /// Hide Logger control
-        /// </summary>
-        public void Hide() => _fmLogViewer.Visible = false;
     }
 }

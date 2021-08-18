@@ -54,12 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlCharacters.cs" />
-    <Compile Include="FmLogViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FmLogViewer.Designer.cs">
-      <DependentUpon>FmLogViewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,12 +64,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FmLogViewer.ja-JP.resx">
-      <DependentUpon>FmLogViewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FmLogViewer.resx">
-      <DependentUpon>FmLogViewer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
