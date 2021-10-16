@@ -56,7 +56,7 @@ namespace LogIO
                 if (100 < value && value < 1 * 1024 * 1024)
                 {
                     _bufferSize = value;
-                    _stringBuilder.Capacity = value;
+                    _stringBuilder.Capacity = _bufferSize;
                 }
             }
         }
