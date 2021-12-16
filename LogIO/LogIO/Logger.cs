@@ -17,7 +17,10 @@ namespace LogIO
     public class Logger
     {
         private readonly static Logger _logger = new Logger();
-        private string LogFilePath => _logFile?.FullName;
+        /// <summary>
+        /// Output file path.
+        /// </summary>
+        public string LogFilePath => _logFile?.FullName;
 
         FileInfo _logFile = null;
         private readonly object _lockObj = new object();
@@ -205,7 +208,7 @@ namespace LogIO
 #if DEBUG
                 "[DEBUG BUILD (LogIO.dll)] " +
 #endif
-                $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}{_timeZoneInfo.DisplayName}]" +
+                $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ff)}{_timeZoneInfo.DisplayName}]" +
                 $" [{treadId}] [{level}] {msg}{Environment.NewLine}";
 
                 if (sync)
