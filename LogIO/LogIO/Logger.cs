@@ -209,7 +209,7 @@ namespace LogIO
                 "[DEBUG BUILD (LogIO.dll)] " +
 #endif
                 $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ff)}{_timeZoneInfo.DisplayName}]" +
-                $" [{treadId}] [{level}] {msg}{Environment.NewLine}";
+                $" [0x{treadId:x4}] [{level}] {msg}{Environment.NewLine}";
 
                 if (sync)
                     WriteSync(fullMsg);
