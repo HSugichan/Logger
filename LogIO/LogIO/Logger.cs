@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LogIO.Properties;
+using System;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Text.RegularExpressions;
-using LogIO.Properties;
-using System.Reflection;
 
 namespace LogIO
 {
@@ -23,7 +20,7 @@ namespace LogIO
         public string LogFilePath => _logFile?.FullName;
 
         FileInfo _logFile = null;
-        private readonly object _lockObj = new object();
+        private readonly object _lockFile = new object();
         /// <summary>
         /// Getter instance (singleton)
         /// </summary>
@@ -96,6 +93,7 @@ namespace LogIO
         public bool EnableOutputViewer { get; set; } = false;
 
         private Action<string> _outLog = null;
+
         /// <summary>
         /// To out log to EXE UI.
         /// </summary>
@@ -125,12 +123,12 @@ namespace LogIO
             fileName = Path.GetFullPath(fileName);
 
             // ログファイルを生成する
-            lock (_lockObj)
+            lock (_lockFile)
             {
                 _logFile = new FileInfo(fileName);
 
             }
-            
+
         }
         /// <summary>
         /// Out exception log
@@ -148,7 +146,7 @@ namespace LogIO
         /// Out critical exception message and stack trace
         /// </summary>
         /// <param name="ex">Exception</param>
-        public void Critical(Exception ex)=> Out(LogLevel.Crisis, $"{ex.Message} ({ex.StackTrace})");
+        public void Critical(Exception ex) => Out(LogLevel.Crisis, $"{ex.Message} ({ex.StackTrace})");
 
         /// <summary>
         /// Out warning log
@@ -186,35 +184,38 @@ namespace LogIO
         private void Out(LogLevel level, string msg, bool sync = true)
         {
             if (!EnableOutputFile &&
-                !EnableOutputConsole && 
+                !EnableOutputConsole &&
                 !EnableOutputViewer)//None output is enable
                 return;
 #if !DEBUG
             if (_logLevel == LogLevel.None || level < _logLevel)
                 return;
 #endif
+            if (sync)
+                Flush();
 
             if (string.IsNullOrWhiteSpace(msg))
                 return;
 
-            lock (_lockObj)
-            {
-                int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+            int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
-                if (msg.Any(x => char.IsControl(x)))
-                    msg = ConvertControlChar(msg);
+            if (msg.Any(x => char.IsControl(x)))
+                msg = ConvertControlChar(msg);
 
-                string fullMsg =
+            string fullMsg =
 #if DEBUG
-                "[DEBUG BUILD (LogIO.dll)] " +
+                "[DEBUG (LogIO.dll)] " +
 #endif
                 $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ff)}{_timeZoneInfo.DisplayName}]" +
-                $" [0x{treadId:x4}] [{level}] {msg}{Environment.NewLine}";
+            $" [0x{treadId:x4}] [{level}] {msg}{Environment.NewLine}";
 
-                if (sync)
-                    WriteSync(fullMsg);
-                else
-                    WriteAsync(fullMsg);
+            if (sync)
+                WriteSync(fullMsg);
+            else
+                WriteAsync(fullMsg);
+
+            lock (_lockFile)
+            {
 
                 _logFile = new FileInfo(LogFilePath);//To update file length
                 if (_logFile.Exists &&
@@ -241,51 +242,62 @@ namespace LogIO
 
         private void WriteSync(string line)
         {
-            _stringBuilder.Append(line);
+            //Viewerに出すログは暗号化しない
+            string fullMsg = line;
+            if (EnableEncryption && _encrypt != null)
+                fullMsg = _encrypt(fullMsg);
 
-            Flush();
+            lock (_lockFile)
+            {
+                if (EnableOutputFile)
+                {
+                    if (!Directory.Exists(_logFile.DirectoryName))
+                        Directory.CreateDirectory(_logFile.DirectoryName);
+
+                    File.AppendAllText(_logFile.FullName, fullMsg);
+                }
+
+                if (EnableOutputConsole)
+                    Console.Write(line);
+
+                if (EnableOutputViewer)
+                    _outLog?.Invoke(line);
+            }
         }
 
+        readonly object _lockBuffrr = new object();
         private void WriteAsync(string line)
         {
-            _stringBuilder.Append(line);
-            if (_stringBuilder.Length > BufferSize * 0.8)
-                Flush();
+            lock (_lockBuffrr)
+            {
+                _stringBuilder.Append(line);
+
+                if (_stringBuilder.Length < BufferSize * 0.8)
+                    return;
+            }
+
+            Flush();
         }
         /// <summary>
         /// Flush buffer data.
         /// </summary>
         public void Flush()
         {
-            if (_stringBuilder.Length < 1)
-                return;
-            var text = _stringBuilder.ToString();
-            _stringBuilder.Clear();
-
-            //Viewerに出すログは暗号化しない
-            string fullMsg = text;
-            if (EnableEncryption && _encrypt != null)
-                fullMsg = _encrypt(fullMsg);
-
-            if (EnableOutputFile)
+            string text;
+            lock (_lockBuffrr)
             {
-                if (!Directory.Exists(_logFile.DirectoryName))
-                    Directory.CreateDirectory(_logFile.DirectoryName);
-
-                File.AppendAllText(_logFile.FullName, fullMsg);
+                if (_stringBuilder.Length < 1)
+                    return;
+                text = _stringBuilder.ToString();
+                _stringBuilder.Clear();
             }
-
-            if (EnableOutputConsole)
-                Console.Write(fullMsg);
-
-            if (EnableOutputViewer)
-                _outLog?.Invoke(text);
+            WriteSync(text);
         }
         private void RotateLogFile()
         {
             string oldFilePath = _logFile.FullName;
 
-            for (int i = 1; i < 1000; i++)
+            for (int i = 1; i < (1 << 10); i++)
             {
                 oldFilePath = $@"{_logFile.DirectoryName}\{Path.GetFileNameWithoutExtension(_logFile.FullName)}({i}).log";
 
