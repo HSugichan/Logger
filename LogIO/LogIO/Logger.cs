@@ -207,7 +207,7 @@ namespace LogIO
                 "[DEBUG (LogIO.dll)] " +
 #endif
                 $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ff)}{_timeZoneInfo.DisplayName}]" +
-            $" [0x{treadId:x4}] [{level}] {msg}{Environment.NewLine}";
+                $" [0x{treadId:x4}] [{level}] {msg}{Environment.NewLine}";
 
             if (sync)
                 WriteSync(fullMsg);
@@ -217,7 +217,7 @@ namespace LogIO
             lock (_lockFile)
             {
 
-                _logFile = new FileInfo(LogFilePath);//To update file length
+                _logFile.Refresh();
                 if (_logFile.Exists &&
                     _logFile.Length > (long)MaxFileSize)
                 {
