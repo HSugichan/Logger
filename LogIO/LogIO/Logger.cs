@@ -306,5 +306,10 @@ namespace LogIO
             }
             File.Move(LogFilePath, oldFilePath);
         }
+
+        ~Logger()
+        {
+            Flush();
+        }
     }
 }
