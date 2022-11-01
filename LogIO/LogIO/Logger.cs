@@ -131,6 +131,24 @@ namespace LogIO
 
         }
         /// <summary>
+        /// Move and rename file.
+        /// </summary>
+        /// <param name="destinationPathName">Destination</param>
+        public void Move(string destinationPathName)
+        {
+            lock (_lockFile)
+            {
+                string sourceFilename = _logFile.FullName;
+
+                _logFile = new FileInfo(destinationPathName);
+
+                if (!_logFile.Directory.Exists)
+                    _logFile.Directory.Create();
+
+                File.Move(sourceFilename, destinationPathName);
+            }
+        }
+        /// <summary>
         /// Out exception log
         /// </summary>
         /// <param name="msg">Message</param>
@@ -306,7 +324,10 @@ namespace LogIO
             }
             File.Move(LogFilePath, oldFilePath);
         }
-
+        /// <summary>
+        /// Destructor.
+        /// Flush before finalization.
+        /// </summary>
         ~Logger()
         {
             Flush();
