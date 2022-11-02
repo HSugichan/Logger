@@ -138,14 +138,14 @@ namespace LogIO
         {
             lock (_lockFile)
             {
-                string sourceFilename = _logFile.FullName;
+                //string sourceFilename = _logFile.FullName;
 
-                _logFile = new FileInfo(destinationPathName);
+                var logFile = new FileInfo(destinationPathName);
 
-                if (!_logFile.Directory.Exists)
-                    _logFile.Directory.Create();
+                if (!logFile.Directory.Exists)
+                    logFile.Directory.Create();
 
-                File.Move(sourceFilename, destinationPathName);
+                _logFile.MoveTo(destinationPathName);
             }
         }
         /// <summary>
@@ -224,8 +224,8 @@ namespace LogIO
 #if DEBUG
                 "[DEBUG (LogIO.dll)] " +
 #endif
-                $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.ff)}{_timeZoneInfo.DisplayName}]" +
-                $" [0x{treadId:x4}] [{level}] {msg}{Environment.NewLine}";
+                $"[{new DateTimeOffset(DateTime.Now):yyyy-MM-dd HH:mm:ss.ff (UTCzzz)} {_timeZoneInfo.Id}]" +
+                $" [{treadId:x4}H] [{level}] {msg}{Environment.NewLine}";
 
             if (sync)
                 WriteSync(fullMsg);
