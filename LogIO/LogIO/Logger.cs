@@ -126,7 +126,6 @@ namespace LogIO
             lock (_lockFile)
             {
                 _logFile = new FileInfo(fileName);
-
             }
 
         }
@@ -269,8 +268,8 @@ namespace LogIO
             {
                 if (EnableOutputFile)
                 {
-                    if (!Directory.Exists(_logFile.DirectoryName))
-                        Directory.CreateDirectory(_logFile.DirectoryName);
+                    if (!_logFile.Directory.Exists)
+                        _logFile.Directory.Create();
 
                     File.AppendAllText(_logFile.FullName, fullMsg);
                 }
@@ -283,10 +282,10 @@ namespace LogIO
             }
         }
 
-        readonly object _lockBuffrr = new object();
+        readonly object _lockBuffer = new object();
         private void WriteAsync(string line)
         {
-            lock (_lockBuffrr)
+            lock (_lockBuffer)
             {
                 _stringBuilder.Append(line);
 
@@ -302,7 +301,7 @@ namespace LogIO
         public void Flush()
         {
             string text;
-            lock (_lockBuffrr)
+            lock (_lockBuffer)
             {
                 if (_stringBuilder.Length < 1)
                     return;
