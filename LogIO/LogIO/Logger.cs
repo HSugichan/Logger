@@ -88,10 +88,14 @@ namespace LogIO
         /// </summary>
         public bool EnableOutputConsole { get; set; } = false;
         /// <summary>
-        /// Enable to output log to viewer.(default false)
+        /// GetEnable to output log to viewer.(default false)
         /// </summary>
         public bool EnableOutputViewer { get; set; } = false;
-
+        /// <summary>
+        /// Gets or sets a value indicating whether the control characters can be converted to read in a text editor.
+        /// e.g. 06H->&lt;ACK&gt;
+        /// </summary>
+        public bool EnableConvertControlChar { get; set; } = true;
         private Action<string> _outLog = null;
 
         /// <summary>
@@ -216,7 +220,7 @@ namespace LogIO
 
             int treadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
-            if (msg.Any(x => char.IsControl(x)))
+            if (EnableConvertControlChar && msg.Any(x => char.IsControl(x)))
                 msg = ConvertControlChar(msg);
 
             string fullMsg =
