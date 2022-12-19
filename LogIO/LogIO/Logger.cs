@@ -29,8 +29,8 @@ namespace LogIO
 
         private readonly StringBuilder _stringBuilder = new StringBuilder();
         /// <summary>
-        /// unit: Byte
-        /// Minimum size is 100 KB. 
+        /// unit: Mega byte
+        /// Minimum size is 1 MB. 
         /// Default size is 1 MB
         /// </summary>
         public int MaxFileSize
@@ -38,7 +38,7 @@ namespace LogIO
             get => _maxFileSize;
             set
             {
-                if (value > 100 * 1024)
+                if (value >= 1)
                     _maxFileSize = value;
             }
         }
@@ -68,7 +68,7 @@ namespace LogIO
         /// <param name="logLevel">log level</param>
         public void SetLogLevel(LogLevel logLevel) => _logLevel = logLevel;
         Func<string, string> _encrypt = null;
-        private int _maxFileSize = 1 * 1024 * 1024;
+        private int _maxFileSize = 1;
         private int _bufferSize = 10 * 1024;
         /// <summary>
         /// Set encrypter
@@ -88,7 +88,7 @@ namespace LogIO
         /// </summary>
         public bool EnableOutputConsole { get; set; } = false;
         /// <summary>
-        /// GetEnable to output log to viewer.(default false)
+        /// Enable to output log to viewer.(default false)
         /// </summary>
         public bool EnableOutputViewer { get; set; } = false;
         /// <summary>
@@ -96,6 +96,10 @@ namespace LogIO
         /// e.g. 06H->&lt;ACK&gt;
         /// </summary>
         public bool EnableConvertControlChar { get; set; } = true;
+        /// <summary>
+        /// Enable to rotate when the file size exceeds MaxFileSize[MB]
+        /// </summary>
+        public bool EnableRotateLogFile { get; set; } = true;
         private Action<string> _outLog = null;
 
         /// <summary>
@@ -240,7 +244,8 @@ namespace LogIO
 
                 _logFile.Refresh();
                 if (_logFile.Exists &&
-                    _logFile.Length > (long)MaxFileSize)
+                    _logFile.Length > MaxFileSize && 
+                    EnableRotateLogFile)
                 {
                     RotateLogFile();
                 }
