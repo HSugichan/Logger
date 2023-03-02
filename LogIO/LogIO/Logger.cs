@@ -33,12 +33,12 @@ namespace LogIO
         /// Minimum size is 1 MB. 
         /// Default size is 1 MB
         /// </summary>
-        public int MaxFileSize
+        public long MaxFileSize
         {
             get => _maxFileSize;
             set
             {
-                if (value >= 1)
+                if (value >= 1<<20)
                     _maxFileSize = value;
             }
         }
@@ -68,7 +68,7 @@ namespace LogIO
         /// <param name="logLevel">log level</param>
         public void SetLogLevel(LogLevel logLevel) => _logLevel = logLevel;
         Func<string, string> _encrypt = null;
-        private int _maxFileSize = 1;
+        private long _maxFileSize = 1;
         private int _bufferSize = 10 * 1024;
         /// <summary>
         /// Set encrypter
@@ -244,7 +244,7 @@ namespace LogIO
 
                 _logFile.Refresh();
                 if (_logFile.Exists &&
-                    _logFile.Length > MaxFileSize && 
+                    _logFile.Length > MaxFileSize * (1 << 20) &&
                     EnableRotateLogFile)
                 {
                     RotateLogFile();
